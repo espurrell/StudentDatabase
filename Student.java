@@ -5,7 +5,7 @@ public class Student {
     private String lastName;
     private int gradeYear;
     private String studentID;
-    private String courses = null;
+    private String courses;
     private int tuitionBalance = 0;
     private static int costOfCourse = 600; // static - not specific to object
     private static int id = 1001;
@@ -22,9 +22,9 @@ public class Student {
         System.out.print("1-Freshman\n2-Sophmore\n3-Junior\n4-Senior\n Enter student class level: ");
         this.gradeYear = in.nextInt();
 
-        setStudentID();
+        this.courses = "";
 
-        System.out.println(firstName + " " + lastName + " " + gradeYear + " " + studentID);
+        setStudentID();
 
     }
 
@@ -45,7 +45,7 @@ public class Student {
             Scanner in = new Scanner(System.in);
             String course = in.nextLine();
             if (!course.equals("Q")) {
-                courses = courses + "\n" + course;
+                courses = courses + "\n  " + course;
                 tuitionBalance = tuitionBalance + costOfCourse;
             }
 
@@ -54,14 +54,34 @@ public class Student {
             }
         } while (1 != 0);
 
-        System.out.println("ENROLLED IN:" + courses);
         System.out.println("TUITION BALANCE: " + tuitionBalance);
     }
 
     // view balance
 
+    public void viewBalance() {
+        System.out.println("Your balance is $" + tuitionBalance);
+    }
+
     // pay tuition
+
+    public void payTuition() {
+        viewBalance();
+        System.out.print("Enter your payment amount $: ");
+        Scanner in = new Scanner(System.in);
+        int payment = in.nextInt();
+        tuitionBalance = tuitionBalance - payment;
+        System.out.println("Thank you for your payment of $" + payment);
+
+    }
 
     // show status
 
+    public String showInfo() {
+        return "Name: " + firstName + " " + lastName +
+                "\nGrade Level: " + gradeYear +
+                "\nStudentID: " + studentID +
+                "\nCourses Enrolled: " + courses +
+                "\nBalance: $" + tuitionBalance;
+    }
 }
